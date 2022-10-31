@@ -1,1 +1,57 @@
 This is my readme file.
+
+int colArrayCounter;
+
+color[] colArray = {
+  color (140, 10, 10),
+  color (160, 30, 30),
+  color (180, 50, 50),
+  color (200, 70, 70),
+  color (220, 90, 90),
+  color (240, 100, 110)
+ 
+};
+
+void setup() {
+  colorMode(HSB);
+  size (1450,900);
+  surface.setLocation(987,70);
+  //noLoop();
+  noStroke(); 
+  mouseX = 10;
+  frameRate(10);
+}
+
+  float c; 
+  
+  void draw() {
+  if (c >= 255) c=0; c++;
+  background(c ,255, 255);  
+     translate(width/2, height/2);
+   
+  float rStep = 30;
+  float rMax = 1920;
+  float rMin = mouseX;
+  
+  for (float r=rMin; r<rMax; r+=rStep) {
+    
+    float c = 2*PI*r; // circumfrence 
+    float cSegment = map(r, 0, rMax, rStep*3/4, rStep/2); 
+    float aSegment = floor(c/cSegment); // angle Segment 
+    float ellipseSize = map(r, 0, rMax, rStep*3/4-1, rStep/4);
+    
+  for (float a=0; a<360; a+=360/aSegment) {
+    //fill(random(250), random(250), random(250));
+    colArrayCounter++;
+   if(colArrayCounter>5) colArrayCounter = 0;
+    fill(colArray[colArrayCounter]);
+    fill(colArray[int(random(6))]);
+
+    pushMatrix();
+    rotate(radians(a));
+    ellipse(r, 0, ellipseSize, ellipseSize);
+    popMatrix(); 
+   }
+  }
+ }
+  
